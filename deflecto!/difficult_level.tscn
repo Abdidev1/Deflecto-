@@ -1,0 +1,212 @@
+[gd_scene format=3 uid="uid://c01ia2xjmbr44"]
+
+[ext_resource type="Script" uid="uid://csyodepe0onuq" path="res://node_2d.gd" id="1_fcyig"]
+[ext_resource type="PackedScene" uid="uid://bmbhtjhp0rypj" path="res://rock_1.tscn" id="2_sh5ee"]
+[ext_resource type="PackedScene" uid="uid://c3dkjlf7fh8v5" path="res://rock_2.tscn" id="3_bxmy1"]
+[ext_resource type="PackedScene" uid="uid://c0cuy3oxbaeuq" path="res://rock_3.tscn" id="4_m7bsd"]
+[ext_resource type="PackedScene" uid="uid://bregjmmsmpuci" path="res://rock_4.tscn" id="5_jltgw"]
+[ext_resource type="PackedScene" uid="uid://c12q6wtjhp34r" path="res://rock_5.tscn" id="6_gwpqi"]
+[ext_resource type="PackedScene" uid="uid://dmnyx7wq7i1a7" path="res://plant_1.tscn" id="7_m5b44"]
+[ext_resource type="PackedScene" uid="uid://bky1w8i7tqgn" path="res://plant_2.tscn" id="8_hatna"]
+[ext_resource type="PackedScene" uid="uid://co4a0mplrldkt" path="res://plant_3.tscn" id="9_1qtn7"]
+[ext_resource type="PackedScene" uid="uid://byf81mm5p35o5" path="res://plant_4.tscn" id="10_3cygr"]
+[ext_resource type="PackedScene" uid="uid://4oemf6p68vk1" path="res://plant_5.tscn" id="11_r87na"]
+[ext_resource type="Script" uid="uid://bc4o7njcvaij6" path="res://boat.gd" id="12_yel83"]
+[ext_resource type="Texture2D" uid="uid://4vfsb3yyroms" path="res://ship01.png" id="13_3t52j"]
+[ext_resource type="Texture2D" uid="uid://c1swhatkf3lq3" path="res://Assets/Bank Asset/Grass 001.png" id="14_6j57v"]
+[ext_resource type="Texture2D" uid="uid://cetq6fp11ajqb" path="res://Assets/Water Assest/Gemini_Generated_Image_m5y6jpm5y6jpm5y6(1).jpg" id="15_q718l"]
+[ext_resource type="Script" uid="uid://ywob0vlcpltc" path="res://hud.gd" id="16_7y2im"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_um1vi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("13_3t52j")
+}],
+"loop": 2,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fjgx7"]
+size = Vector2(56, 96)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_um1vi"]
+size = Vector2(600, 6000)
+
+[node name="Node2D" type="Node2D" unique_id=489474840]
+script = ExtResource("1_fcyig")
+rock_scenes = Array[PackedScene]([ExtResource("2_sh5ee"), ExtResource("3_bxmy1"), ExtResource("4_m7bsd"), ExtResource("5_jltgw"), ExtResource("6_gwpqi")])
+plant_scenes = Array[PackedScene]([ExtResource("7_m5b44"), ExtResource("8_hatna"), ExtResource("9_1qtn7"), ExtResource("10_3cygr"), ExtResource("11_r87na")])
+
+[node name="Boat" type="CharacterBody2D" parent="." unique_id=788931002]
+script = ExtResource("12_yel83")
+current_speed = 250.0
+water_drag = 0.8
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Boat" unique_id=1481740259]
+scale = Vector2(2.515625, 2.203125)
+sprite_frames = SubResource("SpriteFrames_um1vi")
+frame_progress = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boat" unique_id=173694306]
+shape = SubResource("RectangleShape2D_fjgx7")
+
+[node name="Camera2D" type="Camera2D" parent="Boat" unique_id=957970565]
+
+[node name="LeftBank" type="StaticBody2D" parent="." unique_id=363472038]
+position = Vector2(-700, 2500)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftBank" unique_id=734989222]
+shape = SubResource("RectangleShape2D_um1vi")
+
+[node name="BankTexture" type="TextureRect" parent="LeftBank" unique_id=740510902]
+offset_left = -300.0
+offset_top = -3000.0
+offset_right = 300.0
+offset_bottom = 3000.0
+texture = ExtResource("14_6j57v")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="RightBank" type="StaticBody2D" parent="." unique_id=1143408946]
+position = Vector2(700, 2500)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightBank" unique_id=1589761642]
+shape = SubResource("RectangleShape2D_um1vi")
+
+[node name="BankTexture" type="TextureRect" parent="RightBank" unique_id=486398960]
+offset_left = -300.0
+offset_top = -3000.0
+offset_right = 300.0
+offset_bottom = 3000.0
+texture = ExtResource("14_6j57v")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="Water" type="TextureRect" parent="." unique_id=742331524]
+offset_left = -400.0
+offset_top = -3000.0
+offset_right = 400.0
+offset_bottom = 3000.0
+texture = ExtResource("15_q718l")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=1297526494]
+script = ExtResource("16_7y2im")
+score_per_pixel = 0.1
+
+[node name="HealthBar" type="ProgressBar" parent="HUD" unique_id=1218049476]
+custom_minimum_size = Vector2(300, 30)
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 320.0
+offset_bottom = 50.0
+value = 100.0
+show_percentage = false
+
+[node name="HealthText" type="Label" parent="HUD/HealthBar" unique_id=1997425559]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Health: 100 / 100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TopInfo" type="VBoxContainer" parent="HUD" unique_id=1669876056]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="TimeLabel" type="Label" parent="HUD/TopInfo" unique_id=531415243]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Time: 00:00"
+horizontal_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="HUD/TopInfo" unique_id=738620878]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Score: 0"
+horizontal_alignment = 1
+
+[node name="GameOver" type="Control" parent="HUD" unique_id=1956234773]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Dim" type="ColorRect" parent="HUD/GameOver" unique_id=1660926956]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0.02745098, 0.7411765)
+
+[node name="Box" type="VBoxContainer" parent="HUD/GameOver" unique_id=696969097]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleLabel" type="Label" parent="HUD/GameOver/Box" unique_id=2000700849]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 48
+text = "GAME OVER"
+
+[node name="TimeResult" type="Label" parent="HUD/GameOver/Box" unique_id=1238419342]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 28
+text = " Time"
+
+[node name="ScoreResult" type="Label" parent="HUD/GameOver/Box" unique_id=2088029382]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 28
+text = "Score"
+
+[node name="BouncesResult" type="Label" parent="HUD/GameOver/Box" unique_id=866677513]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 28
+text = "Bounces"
+
+[node name="BestResult" type="Label" parent="HUD/GameOver/Box" unique_id=1961465516]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Best"
+horizontal_alignment = 1
+
+[node name="TryAgainButton" type="Button" parent="HUD/GameOver/Box" unique_id=103389436]
+custom_minimum_size = Vector2(320, 56)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Try Again."
+
+[node name="MenuButton" type="Button" parent="HUD/GameOver/Box" unique_id=482811029]
+custom_minimum_size = Vector2(320, 56)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Back to Main Menu"

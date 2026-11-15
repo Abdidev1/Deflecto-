@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://tluh425a7akk"
+path="res://.godot/imported/Super_Mario_Bros._-_Theme_Song_(mp3.pm).mp3-a4a678958ddb1b11388dca80ddd065d5.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sound Assets/Super_Mario_Bros._-_Theme_Song_(mp3.pm).mp3"
+dest_files=["res://.godot/imported/Super_Mario_Bros._-_Theme_Song_(mp3.pm).mp3-a4a678958ddb1b11388dca80ddd065d5.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
